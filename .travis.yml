@@ -12,7 +12,7 @@ addons:
       - oracle-java9-installer
 
 install:
-./gradlew -version
+- ./gradlew -version
 
 script:
 - java -version
