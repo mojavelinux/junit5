@@ -17,6 +17,6 @@ install:
 script:
 - java -version
 - ./gradlew -version
-# - export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
-- - export GRADLE_OPTS="--permit-illegal-access"
+- export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
+# - export GRADLE_OPTS="--permit-illegal-access"
 - ./gradlew --debug --stacktrace check
