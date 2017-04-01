@@ -11,9 +11,12 @@ addons:
     packages:
       - oracle-java9-installer
 
-install: ./gradlew -version
+install:
+./gradlew -version
 
 script:
-  - java -version
-  - ./gradlew -version
-  - ./gradlew check
+- java -version
+- ./gradlew -version
+# - export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
+- - export GRADLE_OPTS="--permit-illegal-access"
+- ./gradlew --debug --stacktrace check
