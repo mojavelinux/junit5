@@ -16,7 +16,7 @@ install:
 - export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED -Dorg.gradle.daemon=false"
 # - export GRADLE_OPTS="--permit-illegal-access"
 - mkdir -p ~/.gradle && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
-- ./gradlew -version
+# - ./gradlew -version
 
 script:
 - ./gradlew --no-daemon --debug --stacktrace check
