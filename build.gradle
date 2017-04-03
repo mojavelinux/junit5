@@ -125,8 +125,8 @@ allprojects { subproj ->
 		'-Xlint:try',
 		'-Xlint:unchecked',
 		'-Xlint:varargs',
-		'-Xlint:-options',
-		'-Werror'
+		'-Xlint:-options'
+		// '-Werror' // allow warnings with jdk-9
 	]
 
 	// See: http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html#BHCJCABJ
