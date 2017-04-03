@@ -12,10 +12,11 @@ addons:
       - oracle-java9-installer
 
 install:
+- java -version
+- export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED -Dorg.gradle.daemon=false"
+# - export GRADLE_OPTS="--permit-illegal-access"
+- mkdir -p ~/.gradle && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
 - ./gradlew -version
 
 script:
-- java -version
-- export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
-# - export GRADLE_OPTS="--permit-illegal-access"
 - ./gradlew --no-daemon --debug --stacktrace check
