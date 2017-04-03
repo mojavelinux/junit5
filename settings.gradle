@@ -17,10 +17,11 @@ include 'junit-platform-surefire-provider'
 include 'junit-vintage-engine'
 include 'platform-tests'
 
+println 'Groovy: ' + GroovySystem.getVersion()
+
 // check that every subproject has a custom build file
 // based on the project name
 rootProject.children.each { project ->
 	project.buildFileName = "${project.name}.gradle"
-	println project.buildFile
-	// assert project.buildFile.isFile()
+	assert project.buildFile.isFile()
 }
