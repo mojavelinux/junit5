@@ -54,6 +54,7 @@ shadowJar {
 	configurations = [project.configurations.shadow]
 	exclude 'META-INF/**'
 	relocate 'joptsimple', 'org.junit.platform.joptsimple'
+	/*
 	transform(org.junit.platform.gradle.plugins.shadow.transformers.PropertiesFileTransformer) {
 		paths = [
 			'joptsimple/ExceptionMessages.properties',
@@ -63,6 +64,7 @@ shadowJar {
 			key.replaceAll('^(joptsimple\\..*)$', 'org.junit.platform.$1')
 		}
 	}
+	*/
 	from(projectDir) {
 		include 'LICENSE-jopt-simple.md'
 		into 'META-INF'
