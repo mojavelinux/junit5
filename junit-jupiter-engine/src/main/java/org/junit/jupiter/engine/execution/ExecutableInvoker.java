@@ -217,6 +217,9 @@ public class ExecutableInvoker {
 			throw ex;
 		}
 		catch (Throwable ex) {
+			System.out.println(ex);
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
 			throw new ParameterResolutionException(String.format("Failed to resolve parameter [%s] in executable [%s]",
 				parameterContext.getParameter(), executable.toGenericString()), ex);
 		}
