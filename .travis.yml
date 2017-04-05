@@ -1,36 +1,29 @@
 language: java
 
-sudo: required
-
-# required for oraclejdk9
+sudo: false
 dist: trusty
 
 jdk:
-  - oraclejdk8
   - oraclejdk9
 
 addons:
   apt:
     packages:
-      - oracle-java8-installer
+      - oracle-java9-installer
 
-matrix:
-  allow_failures:
-    - jdk: oraclejdk9
+install:
+- java -version
+- export GRADLE_OPTS="-Dorg.gradle.daemon=false --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED"
+- mkdir -p ~/.gradle && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+# - export GRADLE_OPTS="--permit-illegal-access" # not supported in b162, yet
+- ./gradlew -version
 
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
-# Display Gradle version instead of letting Travis execute './gradlew assemble' by default
-install: ./gradlew -version
+#
+#  Hot-swap Groovy version to 2.4.10 (replacing 2.4.7) in local Gradle 3.4.1 installation
+#
+- wget http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.10/groovy-all-2.4.10.jar
+- rm ~/.gradle/wrapper/dists/gradle-3.4.1-bin/71zneekfcxxu7l9p7nr2sc65s/gradle-3.4.1/lib/groovy-all-2.4.7.jar
+- cp groovy-all-2.4.10.jar ~/.gradle/wrapper/dists/gradle-3.4.1-bin/71zneekfcxxu7l9p7nr2sc65s/gradle-3.4.1/lib/groovy-all-2.4.7.jar
 
 script:
-  - java -version
-  - ./gradlew -version
-  - ./gradlew --refresh-dependencies clean check --scan
+- ./gradlew --no-daemon --stacktrace --info check

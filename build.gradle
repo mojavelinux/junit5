@@ -94,6 +94,7 @@ allprojects { subproj ->
 		// mavenLocal()
 		mavenCentral()
 		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+		maven { url "https://jitpack.io" }
 	}
 
 	tasks.withType(Test) { task ->
@@ -101,9 +102,14 @@ allprojects { subproj ->
 	}
 
 	tasks.withType(JavaCompile) {
+		options.fork = false
 		sourceCompatibility = rootProject.sourceCompatibility
 		targetCompatibility = rootProject.targetCompatibility
 		options.encoding = 'UTF-8'
+	}
+
+	tasks.withType(GroovyCompile) {
+		options.fork = false
 	}
 
 	// See: http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html#BHCJCABJ
@@ -126,7 +132,7 @@ allprojects { subproj ->
 		'-Xlint:unchecked',
 		'-Xlint:varargs',
 		'-Xlint:-options',
-		'-Werror'
+		// '-Werror' // allow warnings with jdk-9
 	]
 
 	// See: http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html#BHCJCABJ

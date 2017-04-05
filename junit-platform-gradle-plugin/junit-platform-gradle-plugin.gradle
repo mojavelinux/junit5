@@ -51,3 +51,7 @@ processResources {
 		filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [VERSION: version.toString()])
 	}
 }
+
+tasks.withType(GroovyCompile) {
+	options.fork = false
+}
