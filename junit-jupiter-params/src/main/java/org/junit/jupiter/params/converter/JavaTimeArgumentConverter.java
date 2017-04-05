@@ -35,8 +35,9 @@ import org.junit.jupiter.params.support.AnnotationConsumer;
 class JavaTimeArgumentConverter extends SimpleArgumentConverter
 		implements AnnotationConsumer<JavaTimeConversionPattern> {
 
-	private static final Map<Class<?>, TemporalQuery<?>> TEMPORAL_QUERIES;
-	static {
+	private final Map<Class<?>, TemporalQuery<?>> TEMPORAL_QUERIES;
+
+	JavaTimeArgumentConverter() {
 		Map<Class<?>, TemporalQuery<?>> queries = new LinkedHashMap<>();
 		queries.put(ChronoLocalDate.class, ChronoLocalDate::from);
 		queries.put(ChronoLocalDateTime.class, ChronoLocalDateTime::from);
