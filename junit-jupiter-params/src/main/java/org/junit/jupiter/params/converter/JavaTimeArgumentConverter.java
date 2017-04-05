@@ -10,6 +10,10 @@
 
 package org.junit.jupiter.params.converter;
 
+import java.lang.invoke.LambdaMetafactory;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -66,8 +70,21 @@ class JavaTimeArgumentConverter extends SimpleArgumentConverter
 			throw new ArgumentConversionException("Cannot convert to " + targetClass.getName() + ": " + input);
 		}
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-		TemporalQuery<?> temporalQuery = TEMPORAL_QUERIES.get(targetClass);
+		TemporalQuery<?> temporalQuery = createTemporalQuery(targetClass);
 		return formatter.parse(input.toString(), temporalQuery);
+	}
+
+	static TemporalQuery<?> createTemporalQuery(Class<?> targetClass) {
+		try {
+			MethodType methodType = MethodType.methodType(TemporalQuery.class);
+			MethodHandles.Lookup lookup = MethodHandles.lookup();
+			MethodHandle handle = lookup.findStatic(targetClass, "from", methodType);
+			return (TemporalQuery<?>) LambdaMetafactory.metafactory(lookup, "queryFrom", methodType,
+				methodType.generic(), handle, methodType).getTarget().invokeExact();
+		}
+		catch (Throwable t) {
+			throw new AssertionError(t);
+		}
 	}
 
 }
