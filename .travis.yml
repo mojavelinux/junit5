@@ -18,12 +18,5 @@ install:
 # - export GRADLE_OPTS="--permit-illegal-access" # not supported in b162, yet
 - ./gradlew -version
 
-#
-#  Hot-swap Groovy version to 2.4.10 (replacing 2.4.7) in local Gradle 3.4.1 installation
-#
-- wget http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.10/groovy-all-2.4.10.jar
-- rm ~/.gradle/wrapper/dists/gradle-3.4.1-bin/71zneekfcxxu7l9p7nr2sc65s/gradle-3.4.1/lib/groovy-all-2.4.7.jar
-- cp groovy-all-2.4.10.jar ~/.gradle/wrapper/dists/gradle-3.4.1-bin/71zneekfcxxu7l9p7nr2sc65s/gradle-3.4.1/lib/groovy-all-2.4.7.jar
-
 script:
-- ./gradlew --no-daemon --stacktrace --info check
+- ./gradlew --no-daemon --stacktrace check
